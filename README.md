@@ -63,10 +63,10 @@ For example, as route middleware in an [Express](http://expressjs.com/)
 application:
 
 ```js
-app.get('/auth/github',
+app.get('/auth/figma',
   passport.authenticate('figma'));
 
-app.get('/auth/github/callback', 
+app.get('/auth/figma/callback', 
   passport.authenticate('figma', { failureRedirect: '/login' }),
   function(req, res) {
     // Successful authentication, redirect home.
@@ -74,15 +74,6 @@ app.get('/auth/github/callback',
   });
 ```
 _Keep in mind you also need to enable the `express-session` middleware for Figma's `state` verification to work correctly_
-
-## Examples
-
-Developers using the popular [Express](http://expressjs.com/) web framework can
-refer to an [example](https://github.com/passport/express-4.x-facebook-example)
-as a starting point for their own web applications.  The example shows how to
-authenticate users using Facebook.  However, because both Facebook and GitHub
-use OAuth 2.0, the code is similar.  Simply replace references to Facebook with
-corresponding references to GitHub.
 
 ## Support
 
