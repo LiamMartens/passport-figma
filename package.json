@@ -1,12 +1,12 @@
 {
   "name": "passport-figma",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Figma passport strategy for Node.js authentication",
   "main": "./lib",
   "scripts": {
     "test": "jest ./tests",
     "build": "babel src --out-dir lib",
-    "prepublish": "npm run build"
+    "prepare": "npm run build"
   },
   "keywords": [
     "passport",
