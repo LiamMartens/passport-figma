@@ -1,5 +1,7 @@
 # passport-figma
 
+[![Build Status](https://travis-ci.org/LiamMartens/passport-figma.svg?branch=master)](https://travis-ci.org/LiamMartens/passport-figma)[![Coverage Status](https://coveralls.io/repos/github/LiamMartens/passport-figma/badge.svg?branch=master)](https://coveralls.io/github/LiamMartens/passport-figma?branch=master)[![devDependencies Status](https://david-dm.org/LiamMartens/passport-figma/dev-status.svg)](https://david-dm.org/LiamMartens/passport-figma?type=dev)
+
 [Passport](http://passportjs.org/) strategy for authenticating with [Figma](https://figma.com/)
 using the OAuth 2.0 API.
 
