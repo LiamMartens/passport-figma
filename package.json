@@ -1,6 +1,6 @@
 {
   "name": "passport-figma",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Figma passport strategy for Node.js authentication",
   "main": "./lib",
   "scripts": {
