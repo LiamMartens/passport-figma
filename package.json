@@ -1,11 +1,13 @@
 {
   "name": "passport-figma",
-  "version": "0.0.8",
+  "version": "1.0.0",
   "description": "Figma passport strategy for Node.js authentication",
   "main": "./lib",
+  "types": "./lib",
   "scripts": {
     "test": "jest ./tests",
-    "build": "babel src --out-dir lib",
+    "build": "tsc -p .",
+    "watch": "tsc -p . -w",
     "prepare": "npm run build"
   },
   "keywords": [
@@ -34,11 +36,10 @@
     "passport-oauth2": "^1.5.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.4.4",
-    "@babel/core": "^7.4.4",
-    "@babel/preset-env": "^7.4.4",
-    "babel-plugin-add-module-exports": "^1.0.2",
-    "jest": "^24.8.0"
+    "@types/node": "^13.9.5",
+    "@types/passport-oauth2": "^1.4.8",
+    "jest": "^25.0.0",
+    "typescript": "^3.8.3"
   },
   "jest": {
     "verbose": true,

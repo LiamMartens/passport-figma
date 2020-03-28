@@ -1,6 +1,3 @@
-import util from 'util';
-import crypto from 'crypto';
-
 import OAuth2Strategy from 'passport-oauth2';
 
 /**
@@ -41,15 +38,16 @@ import OAuth2Strategy from 'passport-oauth2';
  * @param {Function} verify
  * @api public
  */
-export default class FigmaStrategy extends OAuth2Strategy {
-    constructor(opts, verify) {
-        const options = opts || {};
-        options.authorizationURL = options.authorizationURL || 'https://www.figma.com/oauth';
-        options.tokenURL = options.tokenURL || 'https://www.figma.com/api/oauth/token';
-        options.scope = options.scope || ['file_read'];
-        options.scopeSeparator = options.scopeSeparator || ',';
-        options.customHeaders = options.customHeaders || {};
-
+export class FigmaStrategy extends OAuth2Strategy {
+    constructor(opts: OAuth2Strategy.StrategyOptions, verify: OAuth2Strategy.VerifyFunction) {
+        const options: typeof opts = {
+            authorizationURL: 'https://www.figma.com/oauth',
+            tokenURL: 'https://www.figma.com/api/oauth/token',
+            scope: ['file_read'],
+            scopeSeparator: ',',
+            customHeaders: {},
+            ...opts,
+        };
         super(options, verify);
         this.name = 'figma';
         this._oauth2.useAuthorizationHeaderforGET(true);
@@ -63,7 +61,7 @@ export default class FigmaStrategy extends OAuth2Strategy {
      * @param {String} accessToken 
      * @param {Function} done 
      */
-    userProfile(accessToken, done) {
+    userProfile(accessToken: string, done: (err?: Error | null, profile?: {}) => void) {
         done(null, {});
     }
 }

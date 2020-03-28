@@ -1,5 +1,6 @@
 language: node_js
 node_js:
   - 8
-  - 6
+script:
+  - yarn build
 after_script: node --harmony_proxies node_modules/.bin/jest --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage

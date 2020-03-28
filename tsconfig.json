@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "outDir": "./lib",
+        "declaration": true,
+        "moduleResolution": "node",
+        "esModuleInterop": true,
+        "target": "es2015",
+        "strictNullChecks": true,
+        "noImplicitAny": true,
+        "allowSyntheticDefaultImports": true
+    },
+    "include": [
+        "./src"
+    ],
+    "exclude": [
+        "node_modules"
+    ]
+}
