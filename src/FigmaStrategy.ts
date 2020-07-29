@@ -1,4 +1,6 @@
 import OAuth2Strategy from 'passport-oauth2';
+import { User, Profile } from './types';
+import { parseJsonFromStringOrBuffer } from './utils';
 
 /**
  * `Strategy` constructor.
@@ -39,8 +41,8 @@ import OAuth2Strategy from 'passport-oauth2';
  * @api public
  */
 export class FigmaStrategy extends OAuth2Strategy {
-    constructor(opts: OAuth2Strategy.StrategyOptions, verify: OAuth2Strategy.VerifyFunction) {
-        const options: typeof opts = {
+    constructor(opts: Omit<OAuth2Strategy.StrategyOptions, 'authorizationURL' | 'tokenURL'>, verify: OAuth2Strategy.VerifyFunction) {
+        const options: OAuth2Strategy.StrategyOptions = {
             authorizationURL: 'https://www.figma.com/oauth',
             tokenURL: 'https://www.figma.com/api/oauth/token',
             scope: ['file_read'],
@@ -53,6 +55,10 @@ export class FigmaStrategy extends OAuth2Strategy {
         this._oauth2.useAuthorizationHeaderforGET(true);
     }
 
+    private apiUrl(path: string) {
+        return `https://api.figma.com/v1/${path}`;
+    }
+
     /**
      * Usually you would fetch the authenticated user's profile here
      * but Figma has no profile at this point so we are just
@@ -61,7 +67,23 @@ export class FigmaStrategy extends OAuth2Strategy {
      * @param {String} accessToken 
      * @param {Function} done 
      */
-    userProfile(accessToken: string, done: (err?: Error | null, profile?: {}) => void) {
-        done(null, {});
+    public userProfile(accessToken: string, done: (err?: Error | null, profile?: Profile) => void) {
+        this._oauth2.get(this.apiUrl('me'), accessToken, (err, result) => {
+            if (err || !result) { return done(new Error(`(${err ? err.statusCode : 500}) Failed to fetch user profile`)) }
+            try {
+                const user = parseJsonFromStringOrBuffer<User>(result);
+                done(null, {
+                    provider: 'figma',
+                    id: user.id,
+                    displayName: user.handle,
+                    emails: [{
+                        value: user.email,
+                    }],
+                    photos: [user.img_url]
+                });
+            } catch (err) {
+                done(err);
+            }
+        });
     }
 }
